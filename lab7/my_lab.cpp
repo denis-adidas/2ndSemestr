@@ -51,7 +51,7 @@ long my_strtol(char* str, char** pEnd, int ss) {
     int count = strlen(str);
     int result = 0;
     int i = 0;
-    if (str[0] = '-') i = 1;
+    if (str[0] == '-') i = 1;
     for (i; i < count; i++) {
         int exam_l = (int)(str[i] - 'A');
         int exam_n = (int)(str[i] - '0');
