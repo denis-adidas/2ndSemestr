@@ -10,10 +10,10 @@ int main() {
     char* str = my_string();
     char* pEnd;
     char* pEnd2;
-    long c = strtol(str, &pEnd, 17);
-    long d = my_strtol(str, &pEnd2, 17);
+    long c = strtol(str, &pEnd, 16);
+    long d = my_strtol(str, &pEnd2, 16);
 
-    printf("Test0: %d\n", c);
-    printf("Test1: %d\n", d);
+    printf("Standart strtol: %d\n", c);
+    printf("My strtol: %d\n", d);
     return 0;
 } //функция анлог strtol
