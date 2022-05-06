@@ -1,0 +1,24 @@
+
+ string.h
+ memcpy
+ memmove
+ strcpy
+ strncpy
+ strcat
+ strncat
+ memcmp
+ strcmp
+ strcoll
+ strncmp
+ strxfrm
+ memchr
+ strchr
+ strcspn
+ strpbrk
+ strrchr
+ strspn
+ strstr
+ strtok
+ memset
+ strerror
+ strlen
