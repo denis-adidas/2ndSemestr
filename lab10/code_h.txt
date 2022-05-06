@@ -1,0 +1,7 @@
+#ifndef CODE_H
+#define CODE_H
+#include <time.h> //This library is never used
+#include <stdlib.h> //This library is never used
+#include <stdio.h> 
+#include <string.h> 
+#endif 
