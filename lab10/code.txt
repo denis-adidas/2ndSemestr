@@ -1,0 +1,2 @@
+pch* = strtok(str, " ");
+printf("%d", c);
