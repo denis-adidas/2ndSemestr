@@ -159,16 +159,16 @@ int mas_len(float* mas) {
     return i;
 }
 
-float* masFloat(char* str) {
+int* masFloat(char* str) {
     int  mas_len = 20;
-    float *mas_float = (float *) malloc(sizeof(float) * mas_len);
+    int *mas_float = (int*) malloc(sizeof(int) * mas_len);
     char *pch;
 //    printf("test00 %c \n", str[0]);
     pch = strtok(str, " ");
     int i = 0;
     while (pch != NULL) {
 //        printf("pch %s\n", pch);
-        mas_float[i] = atof(pch);
+        mas_float[i] = atoi(pch);
 //        printf("pch2 %f\n", mas_float[i]);
         pch = strtok(NULL, " ");
         if (i > mas_len) resize(mas_float);
