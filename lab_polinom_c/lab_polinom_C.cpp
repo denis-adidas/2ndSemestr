@@ -38,6 +38,18 @@ std::ostream &operator<<(std::ostream &fo, polinom &o) {
     return fo;
 }
 
+//polinom polinom::operator=(polinom t)
+//{
+//    if (this == t)
+//    {
+//        return *this;
+//    }
+//    degree=t.degree;
+//    for(int i=degree;i>=0;i--)
+//        coef[i]=t.coef[i];
+//    return *this;
+//}
+
 polinom polinom::operator /(polinom &ob) {
 
     bool inAlgoritm = true;
@@ -171,8 +183,20 @@ polinom polinom::operator *(polinom& ob) {
     return temp;
 }
 
-polinom polinom::NOD(polinom &ob_1, polinom &ob_2) {
+polinom& polinom::NOD(const polinom &ob_1, const polinom &ob_2) {
+
     polinom ob_3;
+    polinom bigger;
+    polinom small;
+
+    if (ob_1.degree > ob_2.degree) {
+        bigger = ob_1;
+        small = ob_2;
+    }
+    else {
+        bigger = ob_2;
+        small = ob_1;
+    }
 
     ob_3.degree = ob_1.degree;
     ob_3.coef = new int[ob_3.degree+1];
@@ -180,18 +204,18 @@ polinom polinom::NOD(polinom &ob_1, polinom &ob_2) {
 
 
     while (ob_3.degree > 1) {
-        ob_3 = ob_1;
+        ob_3 = bigger / small;
         if (ob_3.coef[0] == 0 && ob_3.degree == 0) {
             ob_3 = ob_2;
             break;
         }
-        ob_1 = ob_2;
-        ob_2 = ob_3;
+        bigger = small;
+        small = ob_3;
     }
     return ob_3;
 }
 
-polinom polinom::NOK(polinom &ob_1, polinom &ob_2) {
+polinom& polinom::NOK(polinom &ob_1, polinom &ob_2) {
 
     polinom temp;
 
