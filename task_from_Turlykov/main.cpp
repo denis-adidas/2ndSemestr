@@ -3,56 +3,70 @@
 #include "math.h"
 
 int main() {
-    int n = 0;
+    int n_copy = 0;
     printf("Enter count of graphs: \n");
-    scanf("%d", &n);
-    int** matrix = (int**)malloc(sizeof(int**) * (n) + 1);
-    char* str;
+    scanf("%d", &n_copy);
+    int flags_sum = 0;
 
-    printf("Enter numbers of row #1\n");
-    matrix[0] = (int*)malloc(sizeof(int*) + 1);
-    getchar();
-    str = my_string();
-    int* mas_float = masFloat(str);
-    matrix[0] = mas_float;
-    for (int i = 1; i < n; i++) {
-        printf("Enter numbers of row #%d\n", i + 1);
-        matrix[i] = (int*)malloc(sizeof(int*) + 1);
-        str = my_string();
-        mas_float = masFloat(str);
-        matrix[i] = mas_float;
-        free(str);
-    }
-    int j = 0;
-    int ctrl_flag_row = 0;
-    int max_sum_in_row = 0;
-    int* ctrl_flag_clm = (int*)calloc(n, sizeof(int));
-    while (j < n) {
-        int i = 0;
-        float sum_str = 0;
-        while (i < n) {
-            sum_str += matrix[j][i];
-//            printf("test 0: %d \n", matrix[j][i]);
-            ctrl_flag_clm[i] += matrix[j][i];
+    int n = n_copy*(n_copy-1)/2; //ребра
 
-            i++;
+    for (int u = 1; u <= pow(2, n) - 1; u++ ) {
+
+        int* vector = from_number_to_vector(u, n);
+
+//        for (int j = 0; j < n; j++) {
+//            printf("%d ", vector[j]);
+//        }
+//        printf("\n Матрица \n");
+
+        int** matrix2 = make_matrix_from_vector(vector, n_copy);
+
+//        print_matrix(matrix2, n);
+//        printf("\n");
+
+        matrix2 = my_square_matrix_pow(matrix2, n_copy, n_copy);
+
+        int j = 0;
+        int flag = 1;
+        while (j < n_copy) {
+            int i = 0;
+            while (i < n_copy) {
+                if (matrix2[j][i] == 0) {
+                    flag = 0;
+                    break;
+                }
+                i++;
+            }
+            j++;
         }
-        if (sum_str > (int)(n/2))
-            ctrl_flag_row++;
-        j++;
+        flags_sum += flag;
     }
-//    printf("test1 %d\n", ctrl_flag_row);
-    int graph_ctrl_flag = 0;
-    for (int i = 0; i < n; i++) {
-//        printf("test3 %d\n", ctrl_flag_clm[i]);
-        if (ctrl_flag_row >= (int)(n/2) && ctrl_flag_clm[i] >= (int)(n/2)) graph_ctrl_flag = 1;
-        else {
-            graph_ctrl_flag = 0;
-            break;
-        }
-    }
-    if (graph_ctrl_flag > 0) printf("Graph is connected\n");
-    else printf("Graph is not connected\n");
+
+    printf("counts of connected graphs %d \n", flags_sum);
+
+//    int* vector = from_number_to_vector(3, 3);
+//
+//    int** matrix2 = make_matrix_from_vector(vector, n);
+//
+//    print_matrix(matrix2, n);
+//
+//    matrix2 = my_square_matrix_pow(matrix2, n, n);
+//
+//    int j = 0;
+//    int flag = 0;
+//    while (j < n) {
+//        int i = 0;
+//        while (i < n) {
+//            if (matrix2[j][i] == 0) {
+//                flag = 1;
+//                break;
+//            }
+//            i++;
+//        }
+//        j++;
+//    }
+//    if (flag == 1) printf("Graph isn't connected \n");
+//    else printf("Graph is connected");
 }
 /*
  * 1 1 0
