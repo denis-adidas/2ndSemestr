@@ -159,6 +159,37 @@ int mas_len(float* mas) {
     return i;
 }
 
+int** matrix_mylti(int **matrix, int** matrix2, int size) {
+    int **temp_matrix = (int**)malloc(size * sizeof(int*));
+    for (int i = 0; i < size; i++)
+        temp_matrix[i] = (int*)malloc(sizeof(int) * size);
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                temp_matrix[i][j] = 0;
+                for (int k = 0; k < size; k++)
+                    temp_matrix[i][j] += matrix[i][k] * matrix2[k][j];
+            }
+        }
+    return temp_matrix;
+}
+
+int** my_square_matrix_pow(int** matrix, int size, int grade) {
+    int **temp_matrix;
+    int** result;
+
+    temp_matrix = matrix;
+    result = matrix;
+
+    int i = 0;
+    while (i < grade - 1) {
+        result = matrix_mylti(temp_matrix, result, size);
+        i++;
+    }
+    free(temp_matrix);
+   return result;
+}
+
 int* masFloat(char* str) {
     int  mas_len = 20;
     int *mas_float = (int*) malloc(sizeof(int) * mas_len);
@@ -188,3 +219,72 @@ int min(float* mas) {
     }
     return min_i;
 }
+
+int** make_matrix_from_vector(int* vector, int size) {
+    int **temp_matrix = (int **) malloc(size * sizeof(int *));
+    for (int i = 0; i < size; i++)
+        temp_matrix[i] = (int*) malloc(sizeof(int) * size);
+
+    int n = (size * (size - 1)) / 2;
+//    printf("test %d \n", n);
+    int j = 0;
+    int k = 0;
+    while (k < n) {
+        for (int i = 0; i < size; i++) {
+            j = i;
+            temp_matrix[i][j] = 1;
+            j++;
+            for (j; j < size; j++) {
+                temp_matrix[i][j] = vector[k];
+                temp_matrix[j][i] = vector[k];
+                k++;
+            }
+        }
+    }
+    return temp_matrix;
+}
+
+void print_matrix(int** matrix, int size) {
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+            printf("%d ", matrix[i][j]);
+        printf("\n");
+    }
+}
+
+int* from_number_to_vector(int n, int degree) {
+
+//    int degree = (int)log2(n);
+
+    int* vector = (int*)malloc(sizeof(int) * degree);
+    int i = 0;
+
+    while(i < degree) {
+        vector[i] = n % 2;
+        n /= 2;
+        i++;
+    }
+    std::reverse(&vector[0], &vector[i]);
+    return vector;
+}
+
+
+// Ввод матрницы с клавиатуры
+//    int **matrix = (int **) malloc(sizeof(int **) * (n) + 1);
+//    char *str;
+//
+//    printf("Enter numbers of row #1\n");
+//    matrix[0] = (int *) malloc(sizeof(int *) + 1);
+//    getchar();
+//    str = my_string();
+//    int *mas_float = masFloat(str);
+//    matrix[0] = mas_float;
+//    for (int i = 1; i < n; i++) {
+//        printf("Enter numbers of row #%d\n", i + 1);
+//        matrix[i] = (int *) malloc(sizeof(int *) + 1);
+//        str = my_string();
+//        mas_float = masFloat(str);
+//        matrix[i] = mas_float;
+//        free(str);
+//    }
